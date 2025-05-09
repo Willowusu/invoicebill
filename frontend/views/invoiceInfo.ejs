@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--begin::Head-->
+<%- include('partials/mainHead')%>
+  <script type="module" src="/assets/js/invoiceInfo.js"></script>
+
+  <!--end::Head-->
+  <!--begin::Body-->
+
+  <body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-header="true"
+    data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+    class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
+      <!--begin::Page-->
+      <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
+        <!--begin::Header-->
+        <div id="kt_app_header" class="app-header">
+          <!--begin::Header container-->
+          <div class="app-container container-fluid d-flex align-items-stretch flex-stack" id="kt_app_header_container">
+            <!--begin::Sidebar toggle-->
+            <div class="d-flex align-items-center d-block d-lg-none ms-n3" title="Show sidebar menu">
+              <div class="btn btn-icon btn-active-color-primary w-35px h-35px me-2" id="kt_app_sidebar_mobile_toggle">
+                <i class="ki-outline ki-abstract-14 fs-2"></i>
+              </div>
+              <!--begin::Logo image-->
+              <a href="index.html">
+                <img alt="Logo" src="assets/media/logos/demo42-small.svg" class="h-30px" />
+              </a>
+              <!--end::Logo image-->
+            </div>
+            <!--end::Sidebar toggle-->
+            <!--begin::Toolbar wrapper-->
+
+            <!--end::Navbar-->
+          </div>
+          <!--end::Header container-->
+        </div>
+        <!--end::Header-->
+        <!--begin::Wrapper-->
+        <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
+          <!--begin::Sidebar-->
+          <%- include('partials/mainSidebar') %>
+            <!--end::Sidebar-->
+            <!--begin::Main-->
+            <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
+              <!--begin::Content wrapper-->
+              <div class="d-flex flex-column flex-column-fluid">
+                <!--begin::Toolbar-->
+                <div id="kt_app_toolbar" class="app-toolbar pt-5 pt-lg-10">
+                  <!--begin::Toolbar container-->
+                  <div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack flex-wrap">
+                    <!--begin::Toolbar wrapper-->
+                    <div class="app-toolbar-wrapper d-flex flex-stack flex-wrap gap-4 w-100">
+                      <!--begin::Page title-->
+                      <div class="page-title d-flex flex-column justify-content-center gap-1 me-3">
+                        <!--begin::Title-->
+                        <h1
+                          class="page-heading d-flex flex-column justify-content-center text-gray-900 fw-bold fs-3 m-0">
+                          Invoice</h1>
+                        <!--end::Title-->
+                        <!--begin::Breadcrumb-->
+                        <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
+                          <!--begin::Item-->
+                          <li class="breadcrumb-item text-muted">
+                            <a href="/" class="text-muted text-hover-primary">Home</a>
+                          </li>
+                          <!--end::Item-->
+                          <!--begin::Item-->
+                          <li class="breadcrumb-item">
+                            <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                          </li>
+                          <!--end::Item-->
+                          <!--begin::Item-->
+                          <li class="breadcrumb-item text-muted">Dashboards</li>
+                          <!--end::Item-->
+                        </ul>
+                        <!--end::Breadcrumb-->
+                      </div>
+                      <!--end::Page title-->
+
+                    </div>
+                    <!--end::Toolbar wrapper-->
+                  </div>
+                  <!--end::Toolbar container-->
+                </div>
+                <!--end::Toolbar-->
+                <!--begin::Content-->
+                <div id="kt_app_content" class="app-content flex-column-fluid">
+                  <!--begin::Content container-->
+                  <div id="kt_app_content_container" class="app-container container-xxl">
+
+                    <div
+                      class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3 flex-wrap">
+                      <section>
+                        <h1 id="invoice-title">Invoice</h1>
+                        <div class="small text-muted" id="invoice-issued">Issued on</div>
+                      </section>
+
+                      <section class="d-flex flex-wrap justify-content-md-end gap-2">
+                        <div class="btn btn-light" id="print-invoice">Print</div>
+                        <div class="btn btn-light" id="download-invoice">Download</div>
+                        <div class="btn btn-light">Send</div>
+                        <div class="btn btn-light">...</div>
+                      </section>
+                    </div>
+
+
+                    <div class="card p-7 mt-7 shadow" id="invoice-card">
+
+                      <div class="d-flex align-items-center justify-content-between">
+                        <section>
+                          <h1 class="">Invoice Details</h1>
+                          <div class="small text-muted">Status: <span id="invoice-status" class="badge"></span>
+                          </div>
+                        </section>
+                        <section class="d-flex align-items-center justify-content-end gap-2">
+                          <img src="" id="account-logo" class="w-auto h-100 object-fit-contain"
+                            style="max-width: 50px;" height="100" alt="">
+                          <h1 id="account-name"></h1>
+                        </section>
+                      </div>
+
+
+                      <div class="d-flex align-items-cd-flex align-items-center justify-content-betweenenter justify-content-between mt-4">
+
+                        <section>
+                          <div class="text-muted small mb-2">Bill To:</div>
+                          <div class="fw-bold fs-5 my-1" id="client-company"></div>
+                          <div class="fs-5 my-1" id="client-name"></div>
+                          <div class="fs-5 my-1" id="client-address"></div>
+                          <div class="fs-5 my-1" id="client-email"></div>
+                        </section>
+
+                        <section>
+                          <div class="text-muted small mb-1">Invoice Number:</div>
+                          <div class="fs-5 my-1 invoice-number"></div>
+                          <div class="text-muted small my-1">Issue Date:</div>
+                          <div class="fs-5 my-1" id="invoice-date"></div>
+                          <div class="text-muted small my-1">Due Date:</div>
+                          <div class="fs-5 my-1" id="invoice-due"></div>
+                        </section>
+                      </div>
+
+                      <hr>
+
+                      <h3 class="my-3">Invoice Items</h3>
+
+                      <div class="table-responsive">
+                        <table class="table table-hover table-rounded table-striped border gy-7 gs-7">
+                          <thead>
+                            <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                              <th>Description</th>
+                              <th>Quantity</th>
+                              <th>Rate</th>
+                              <th>Amount</th>
+                            </tr>
+                          </thead>
+                          <tbody id="invoice-items-body">
+                            <!-- JS will inject rows here -->
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <div class="d-flex flex-column align-items-end justify-content-end mt-4 ">
+                        <div class="d-flex align-items-center justify-content-between gap-5 mt-4">
+                          <div class="fs-5 text-muted">Subtotal:</div>
+                          <div class="fs-5" id="invoice-subtotal"></div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between gap-5 mt-4">
+                          <div class="fs-5 text-muted">Tax:</div>
+                          <div class="fs-5" id="invoice-tax"></div>
+                        </div>
+                        <hr style="width: 150px">
+                        <div class="d-flex align-items-center justify-content-between gap-5">
+                          <div class="fs-5 text-muted">Total:</div>
+                          <div class="fs-5" id="invoice-total"></div>
+                        </div>
+                        <hr style="width: 150px">
+                        <div class="d-flex align-items-center justify-content-between gap-5">
+                          <div class="fs-5 text-success" id="invoice-paid-date"></div>
+                          <div class="fs-5 text-success" id="invoice-paid"></div>
+                        </div>
+                      </div>
+
+                      <hr>
+
+                      <h2>Notes</h2>
+                      <p class="text-muted" id="invoice-notes">Payment due within 30 days. Please make checks payable to
+                        InvoiceHub Inc.</p>
+
+                      <hr>
+
+                      <p class="text-muted">Thank you for your business. If you have any questions, please contact us.
+                      </p>
+
+
+                    </div>
+
+                    <!--end::Content container-->
+                  </div>
+                  <!--end::Content-->
+                </div>
+                <!--end::Content wrapper-->
+
+              </div>
+              <!--end:::Main-->
+            </div>
+            <!--end::Wrapper-->
+        </div>
+        <!--end::Page-->
+      </div>
+      <!--end::App-->
+
+      <!--begin::Scrolltop-->
+      <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <i class="ki-outline ki-arrow-up"></i>
+      </div>
+      <!--end::Scrolltop-->
+
+      <!--begin::Javascript-->
+      <%- include('partials/toast') %>
+        <%- include('partials/mainScript') %>
+          <!--end::Javascript-->
+  </body>
+  <!--end::Body-->
+
+</html>
