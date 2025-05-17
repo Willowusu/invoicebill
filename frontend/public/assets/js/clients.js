@@ -34,7 +34,8 @@ $(() => {
           });
 
       } else {
-        showToast(response.message, 'text-bg-danger');
+        TransformStream.error(response.message);
+        // showToast(response.message, 'text-bg-danger');
       }
     })
     .catch(error => {

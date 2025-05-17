@@ -10,6 +10,6 @@ const paymentSchema = new mongoose.Schema({
 
   transactionId: String, // from Stripe or PayPal
   paidAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Payment', paymentSchema);

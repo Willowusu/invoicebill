@@ -6,6 +6,6 @@ const inviteSchema = new mongoose.Schema({
   token: { type: String, required: true, unique: true },
   status: { type: String, enum: ['pending', 'accepted', 'declined'], default: 'pending' },
   createdAt: { type: Date, default: Date.now, expires: '7d' }, // Expires in 7 days
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Invite', inviteSchema);

@@ -9,6 +9,6 @@ const clientSchema = new mongoose.Schema({
   notes: String,
   status: { type: String, enum: ['active', 'inactive'], default: 'active' },
   createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Client', clientSchema);

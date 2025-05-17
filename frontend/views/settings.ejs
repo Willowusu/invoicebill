@@ -1,19 +1,11 @@
 <!DOCTYPE html>
-<!--
-Author: Keenthemes
-Product Name: MetronicProduct Version: 8.2.6
-Purchase: https://1.envato.market/EA4JP
-Website: http://www.keenthemes.com
-Contact: support@keenthemes.com
-Follow: www.twitter.com/keenthemes
-Dribbble: www.dribbble.com/keenthemes
-Like: www.facebook.com/keenthemes
-License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
--->
+
 <html lang="en">
 <!--begin::Head-->
 <%- include('partials/mainHead')%>
-
+  <script type="module" src="/assets/js/accountSettingsCompany.js"></script>
+  <script type="module" src="/assets/js/accountSettingsNotifications.js"></script>
+  <script type="module" src="/assets/js/accountSettingsProfile.js"></script>
   <!--end::Head-->
   <!--begin::Body-->
 
@@ -77,7 +69,7 @@ License: For each use you must have a valid license purchased only from above li
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0">
                           <!--begin::Item-->
                           <li class="breadcrumb-item text-muted">
-                            <a href="index.html" class="text-muted text-hover-primary">Home</a>
+                            <a href="/" class="text-muted text-hover-primary">Home</a>
                           </li>
                           <!--end::Item-->
                           <!--begin::Item-->
@@ -124,27 +116,22 @@ License: For each use you must have a valid license purchased only from above li
 
                           <div class="mb-5">
                             <label for="fullName" class="form-label">Full Name</label>
-                            <input type="text" class="form-control" value="John Doe">
+                            <input type="text" class="form-control" id="name">
                           </div>
 
                           <div class="mb-5">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" value="johnsompa@mail.com" id="email">
+                            <input type="email" class="form-control" id="email">
                           </div>
 
                           <div class="mb-5">
                             <label for="phone" class="form-label">Phone</label>
-                            <input type="tel" class="form-control" value="(555)-673-8974" id="phone">
+                            <input type="tel" class="form-control" id="phone">
                           </div>
-
-                          <div class="mb-5">
-                            <label for="accountCreated" class="form-label">Account Created</label>
-                            <input type="date" class="form-control" value="John Doe" id="accountCreated">
-                          </div>
-
 
                           <div class="d-flex justify-content-end align-items-center">
-                            <button type="button" class="btn btn-primary mt-3">Save Changes</button>
+                            <button type="button" id="updateUserProfile" class="btn btn-primary mt-3">Save
+                              Changes</button>
                           </div>
                         </div>
 
@@ -155,25 +142,26 @@ License: For each use you must have a valid license purchased only from above li
                           </div>
 
                           <div class="mb-5">
-                            <label for="fullName" class="form-label">Current Password</label>
-                            <input type="text" class="form-control" value="John Doe">
+                            <label for="currentPassword" class="form-label">Current Password</label>
+                            <input type="password" id="currentPassword" class="form-control">
                           </div>
 
                           <div class="d-flex align-items-center justify-content-between mb-5 gap-3">
                             <div>
                               <label for="newPassword" class="form-label">New Password</label>
-                              <input type="password" class="form-control">
+                              <input type="password" id="newPassword" class="form-control">
                             </div>
 
                             <div>
                               <label for="confirmPassword" class="form-label">Confirm Password</label>
-                              <input type="password" class="form-control">
+                              <input type="password" id="confirmNewPassword" class="form-control">
                             </div>
                           </div>
 
 
                           <div class="d-flex justify-content-end align-items-center">
-                            <button type="button" class="btn btn-primary mt-3">Update Password</button>
+                            <button type="button" id="updatePassword" class="btn btn-primary mt-3">Update
+                              Password</button>
                           </div>
                         </div>
                       </div>
@@ -187,39 +175,40 @@ License: For each use you must have a valid license purchased only from above li
 
                           <div class="mb-5">
                             <label for="companyName" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" value="InvoiceHub Inc.">
+                            <input type="text" class="form-control" id="accountName">
                           </div>
 
                           <div class="mb-5">
-                            <label for="email" class="form-label">Email</label>
-                            <input type="email" class="form-control" value="johnsompa@mail.com" id="email">
+                            <label for="companyEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="accountEmail">
                           </div>
 
                           <div class="mb-5">
                             <label for="address" class="form-label">Address</label>
-                            <textarea type="tel" class="form-control" id="address"></textarea>
+                            <textarea type="tel" class="form-control" id="accountAddress"></textarea>
                           </div>
 
-                            <div class="d-flex align-items-center justify-content-between mb-5 gap-3">
-                              <div>
-                                <label for="companyEmail" class="form-label">Email</label>
-                                <input type="email" class="form-control" value="ceo@invoicehub.com">
-                              </div>
+                          <div class="mb-5">
+                            <label for="phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="accountPhone">
+                          </div>
+                          <div class="mb-5">
+                            <label for="accountLogoInput" class="form-label">
+                              Logo <span class="text-muted">(upload your logo here max:500kb)</span>
+                            </label>
+                            <section class="d-flex align-items-center justify-content-end gap-2">
+                              <!-- This is for previewing the logo -->
+                              <img src="" id="accountLogoPreview" class="w-auto h-100 object-fit-contain" style="max-width: 50px;" height="100"
+                                alt="Logo Preview">
 
-                              <div>
-                                <label for="companyPhone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" value="(555)-673-8974" id="companyPhone">
-                              </div>
-                            </div>
-
-                            <div class="mb-5">
-                              <label for="taxVatNumber" class="form-label">Tax ID / VAT Number</label>
-                              <input type="text" class="form-control" value="US123456789" id="taxVatNumber">
-                            </div>
+                              <!-- This is for selecting the file -->
+                              <input type="file" class="form-control" id="accountLogoInput" accept="image/*">
+                            </section>
+                          </div>
 
 
                           <div class="d-flex justify-content-end align-items-center">
-                            <button type="button" class="btn btn-primary mt-3">Save Changes</button>
+                            <button type="button" class="btn btn-primary mt-3" id="updateAccountSettings">Save Changes</button>
                           </div>
                         </div>
 
@@ -331,22 +320,22 @@ License: For each use you must have a valid license purchased only from above li
 
                           <hr>
 
-                            <div class="mb-3">
-                              <label for="dueDateReminder" class="form-label">Days Before Due Date</label>
-                              <input type="number" class="form-control" id="dueDateReminder"
-                                aria-describedby="dueDateHelp">
-                              <div id="dueDateHelp" class="form-text">Send a reminder this many days before the invoice
-                                is due</div>
-                            </div>
+                          <div class="mb-3">
+                            <label for="dueDateReminder" class="form-label">Days Before Due Date</label>
+                            <input type="number" class="form-control" id="dueDateReminder"
+                              aria-describedby="dueDateHelp">
+                            <div id="dueDateHelp" class="form-text">Send a reminder this many days before the invoice
+                              is due</div>
+                          </div>
 
                           <hr>
 
-                            <div class="mb-3">
-                              <label for="dueDateReminder" class="form-label">Days Before Due Date</label>
-                              <input type="number" class="form-control" id="dueDateReminder"
-                                aria-describedby="dueDateHelp">
-                              <div id="dueDateHelp" class="form-text">Send a reminder this many days before the invoice
-                                is due</div>
+                          <div class="mb-3">
+                            <label for="dueDateReminder" class="form-label">Days Before Due Date</label>
+                            <input type="number" class="form-control" id="dueDateReminder"
+                              aria-describedby="dueDateHelp">
+                            <div id="dueDateHelp" class="form-text">Send a reminder this many days before the invoice
+                              is due</div>
                           </div>
                           <div class="d-flex justify-content-end align-items-center">
                             <button type="button" class="btn btn-primary mt-3">Save Settings</button>
@@ -364,11 +353,11 @@ License: For each use you must have a valid license purchased only from above li
               </div>
               <!--end::Content wrapper-->
 
-    <%- include('partials/footer') %>
+              <%- include('partials/footer') %>
 
-    <!--begin::Javascript-->
-    <%- include('partials/mainScript') %>
-      <!--end::Javascript-->
+                <!--begin::Javascript-->
+                <%- include('partials/mainScript') %>
+                  <!--end::Javascript-->
   </body>
   <!--end::Body-->
 

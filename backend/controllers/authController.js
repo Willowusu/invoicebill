@@ -105,6 +105,7 @@ exports.login = async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      phone: user.phone,
       accountId: user.accountId._id,
       accountType: user.accountId.type,
       accountName: user.accountId.name
@@ -113,12 +114,18 @@ exports.login = async (req, res) => {
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, { expiresIn: "6h" });
 
     const userResponse = {
+      id: user._id,
       name: user.name,
       email: user.email,
       role: user.role,
+      phone: user.phone,
+
       accountId: user.accountId._id,
       accountType: user.accountId.type,
-      accountName: user.accountId.name
+      accountName: user.accountId.name,
+      accountPhone: user.accountId.phone,
+      accountAddress: user.accountId.address,
+      accountLogo: user.accountId.logo,
     };
 
     return res.status(200).json(response(200, "success", { token, user: userResponse }, "User logged in successfully"));
@@ -156,5 +163,121 @@ exports.inviteUser = async (req, res) => {
   } catch (err) {
     console.error(err);
     return res.status(500).json(response(500, 'error', null, 'Internal server error'));
+  }
+};
+
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const userId = req.user.id; // Authenticated user's ID
+    const { currentPassword, newPassword, confirmNewPassword } = req.body;
+
+
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
+      return res.status(400).json({ status: 'error', message: 'All fields are required.' });
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      return res.status(400).json({ status: 'error', message: 'New passwords do not match.' });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ status: 'error', message: 'User not found.' });
+    }
+
+
+    const isMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+    if (!isMatch) {
+      return res.status(401).json({ status: 'error', message: 'Current password is incorrect.' });
+    }
+
+
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(newPassword, salt);
+
+    user.passwordHash = hashedPassword;
+    await user.save();
+
+    res.status(200).json({ status: 'success', message: 'Password updated successfully.' });
+  } catch (err) {
+    console.error('Error changing password:', err);
+    res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
+  }
+};
+
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.user.id; // Authenticated user
+    const { name, email, phone } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({ status: 'error', message: 'Name and email are required.' });
+    }
+
+    // Optional: validate email format or uniqueness here if needed
+    const existingEmail = await User.findOne({ email, _id: { $ne: userId } });
+    if (existingEmail) {
+      return res.status(400).json({ status: 'error', message: 'Email is already taken.' });
+    }
+
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { name, email, phone },
+      { new: true, runValidators: true }
+    ).select('-password'); // Exclude password from response
+
+    if (!updatedUser) {
+      return res.status(404).json({ status: 'error', message: 'User not found.' });
+    }
+
+    return res.status(200).json({
+      status: 'success',
+      message: 'Profile updated successfully.',
+      data: updatedUser,
+    });
+  } catch (err) {
+    console.error('Error updating user profile:', err);
+    res.status(500).json({ status: 'error', message: 'Server error. Please try again later.' });
+  }
+};
+
+exports.updateAccountDetails = async (req, res) => {
+  try {
+    const user = req.user; // Authenticated user
+    const { name, email, address, phone, logo } = req.body;
+
+    const account = await Account.findById(user.accountId);
+    if (!account) {
+      return res.status(404).json({ status: 'error', message: 'Account not found' });
+    }
+
+    account.name = name || account.name;
+    account.email = email || account.email;
+    account.address = address || account.address;
+    account.phone = phone || account.phone;
+
+    if (logo && logo.startsWith('data:image')) {
+      // Extract base64 string only
+      const base64Data = logo.split(',')[1];
+
+      // Decode base64 to check size in bytes
+      const imageBuffer = Buffer.from(base64Data, 'base64');
+      const imageSizeInBytes = imageBuffer.length;
+
+      if (imageSizeInBytes > 512000) {
+        return res.status(400).json({ status: 'error', message: 'Logo must be smaller than 500KB' });
+      }
+
+      account.logo = logo;
+    }
+
+    await account.save();
+
+    res.status(200).json({ status: 'success', message: 'Account updated successfully', data: account });
+  } catch (err) {
+    console.error('Error updating account:', err);
+    res.status(500).json({ status: 'error', message: 'Server error' });
   }
 };

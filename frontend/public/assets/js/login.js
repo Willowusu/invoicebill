@@ -27,12 +27,14 @@ $("#loginForm").submit((e) => {
     .then(response => {
       if (response.status === "success") {
         sessionStorage.setItem("info", JSON.stringify(response.data));
-        showToast(response.message, 'text-bg-success');
+        toastr.success(response.message);
+        // showToast(response.message, 'text-bg-success');
         setTimeout(() => {
           window.location.href = "/dashboard";
         }, 2000);
       } else {
-        showToast(response.message, 'text-bg-danger');
+        toastr.error(response.message);
+        // showToast(response.message, 'text-bg-danger');
       }
     })
     .catch(error => {

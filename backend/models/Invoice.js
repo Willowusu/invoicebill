@@ -28,6 +28,6 @@ const invoiceSchema = new mongoose.Schema({
   paidAmount: Number,
 
   createdAt: { type: Date, default: Date.now }
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model('Invoice', invoiceSchema);

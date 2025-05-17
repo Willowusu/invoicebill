@@ -5,11 +5,17 @@ const clientController = require('../controllers/clientController');
 const invoiceController = require('../controllers/invoiceController');
 const dashboardController = require('../controllers/dashboardController');
 const { authenticateToken } = require('../middleware/auth');
+const multer = require('multer');
+const upload = multer({ storage: multer.memoryStorage() }); // Use memory, not disk
+
 
 
 router.post('/auth/register', authController.register);
 router.post('/auth/login', authController.login);
 router.post('/auth/invite', authenticateToken, authController.inviteUser);
+router.post('/auth/update-password', authenticateToken, authController.updatePassword);
+router.post('/auth/update-user-profile', authenticateToken, authController.updateUserProfile);
+router.put('/auth/update-account-details', authenticateToken, authController.updateAccountDetails);
 
 router.post('/dashboard-stats', authenticateToken, dashboardController.getDashboardStats);
 

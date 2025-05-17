@@ -102,7 +102,8 @@ $(() => {
 
 
       } else {
-        showToast(response.message, 'text-bg-danger');
+        toastr.error(response.message);
+        // showToast(response.message, 'text-bg-danger');
       }
     })
     .catch(error => {

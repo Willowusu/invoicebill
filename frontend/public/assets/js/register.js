@@ -78,12 +78,14 @@ $("#registerForm").submit((e) => {
     .then(response => response.json())
     .then(response => {
       if (response.status === "success") {
-        showToast(response.message, 'text-bg-success');
+        toastr.success(response.message);
+        // showToast(response.message, 'text-bg-success');
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
       } else {
-        showToast(response.message, 'text-bg-danger');
+        toastr.error(response.message);
+        // showToast(response.message, 'text-bg-danger');
       }
     })
     .catch(error => {
