@@ -14,6 +14,13 @@ exports.createInvoice = async (req, res) => {
   }
   try {
     const user = req.user;
+
+    const account = await Account.findById(user.accountId);
+    if (!account) {
+      return res.status(404).json(response(404, 'error', null, 'Account not found or does not belong to user'));
+    }
+
+
     const { clientId, items, dueDate, notes, taxRate = 0 } = req.body;
 
     // Basic validation
@@ -39,7 +46,7 @@ exports.createInvoice = async (req, res) => {
     const total = subtotal + taxAmount;
 
     // Generate a simple invoice number (you can make this more robust)
-    const invoiceNumber = `INV-${Date.now()}`;
+    const invoiceNumber = `${account.defaultInvoicePrefix}${Date.now()}`;
 
     // Create the invoice
     const newInvoice = new Invoice({

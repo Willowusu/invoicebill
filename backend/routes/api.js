@@ -16,6 +16,7 @@ router.post('/auth/invite', authenticateToken, authController.inviteUser);
 router.post('/auth/update-password', authenticateToken, authController.updatePassword);
 router.post('/auth/update-user-profile', authenticateToken, authController.updateUserProfile);
 router.put('/auth/update-account-details', authenticateToken, authController.updateAccountDetails);
+router.put('/auth/update-account-invoice-settings', authenticateToken, authController.updateAccountInvoiceSettings);
 
 router.post('/dashboard-stats', authenticateToken, dashboardController.getDashboardStats);
 

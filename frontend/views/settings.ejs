@@ -220,27 +220,27 @@
 
                           <div class="mb-5">
                             <label for="fullName" class="form-label">Invoice Number Prefix</label>
-                            <input type="text" class="form-control" value="INV-">
+                            <input type="text" id="accountInvoicePrefix" class="form-control" placeholder="INV-">
                           </div>
 
                           <div class="mb-5">
                             <label for="email" class="form-label">Default Payment Terms(days)</label>
-                            <input type="number" class="form-control" value="30">
+                            <input type="number" id="accountPaymentTerms" class="form-control" value="30">
                           </div>
 
                           <div class="mb-5">
                             <label for="phone" class="form-label">Default Tax Rate (/%)</label>
-                            <input type="number" class="form-control" value="0" id="phone">
+                            <input type="number" id="accountTaxRate" class="form-control" value="0" id="phone">
                           </div>
 
                           <div class="mb-5">
                             <label for="accountCreated" class="form-label">Default Invoice Notes</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea id="accountInvoiceNotes" class="form-control"></textarea>
                           </div>
 
 
                           <div class="d-flex justify-content-end align-items-center">
-                            <button type="button" class="btn btn-primary mt-3">Save Changes</button>
+                            <button type="button" id="updateAccountInvoiceSettings" class="btn btn-primary mt-3">Save Changes</button>
                           </div>
                         </div>
                       </div>

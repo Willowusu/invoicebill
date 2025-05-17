@@ -126,6 +126,10 @@ exports.login = async (req, res) => {
       accountPhone: user.accountId.phone,
       accountAddress: user.accountId.address,
       accountLogo: user.accountId.logo,
+      accountInvoicePrefix: user.accountId.defaultInvoicePrefix,
+      accountPaymentTerms: user.accountId.defaultPaymentTerms,
+      accountTaxRate: user.accountId.defaultTaxRate,
+      accountInvoiceNotes: user.accountId.defaultInvoiceNotes
     };
 
     return res.status(200).json(response(200, "success", { token, user: userResponse }, "User logged in successfully"));
@@ -272,6 +276,31 @@ exports.updateAccountDetails = async (req, res) => {
 
       account.logo = logo;
     }
+
+    await account.save();
+
+    res.status(200).json({ status: 'success', message: 'Account updated successfully', data: account });
+  } catch (err) {
+    console.error('Error updating account:', err);
+    res.status(500).json({ status: 'error', message: 'Server error' });
+  }
+};
+
+exports.updateAccountInvoiceSettings = async (req, res) => {
+  try {
+    const user = req.user; // Authenticated user
+    const { defaultInvoicePrefix, defaultPaymentTerms, defaultTaxRate, defaultInvoiceNotes } = req.body;
+
+    const account = await Account.findById(user.accountId);
+    if (!account) {
+      return res.status(404).json({ status: 'error', message: 'Account not found' });
+    }
+
+    account.defaultInvoicePrefix = defaultInvoicePrefix || account.defaultInvoicePrefix;
+    account.defaultPaymentTerms = defaultPaymentTerms || account.defaultPaymentTerms;
+    account.defaultTaxRate = defaultTaxRate || account.defaultTaxRate;
+    account.defaultInvoiceNotes = defaultInvoiceNotes || account.defaultInvoiceNotes;
+
 
     await account.save();
 

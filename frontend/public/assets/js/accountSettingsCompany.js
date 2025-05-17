@@ -8,6 +8,12 @@ $(() => {
   $("#accountAddress").val(info.user.accountAddress);
   $("#accountPhone").val(info.user.accountPhone);
   $('#accountLogoPreview').attr('src', info.user.accountLogo);
+  $("#accountInvoicePrefix").val(info.user.accountInvoicePrefix);
+  $("#accountPaymentTerms").val(info.user.accountPaymentTerms);
+  $("#accountTaxRate").val(info.user.accountTaxRate);
+  $("#accountInvoiceNotes").val(info.user.accountInvoiceNotes);
+
+
 
   // Update account settings
   $("#updateAccountSettings").on("click", async () => {
@@ -57,6 +63,47 @@ $(() => {
       })
       .then(data => {
         toastr.success('Company information updated successfully');
+      })
+      .catch(error => {
+        console.error(error);
+        toastr.error(error.message);
+      });
+  });
+
+
+  // Update account settings
+  $("#updateAccountInvoiceSettings").on("click", async () => {
+    const defaultInvoicePrefix = $('#accountInvoicePrefix').val();
+    const defaultPaymentTerms = $('#accountPaymentTerms').val();
+    const defaultTaxRate = $('#accountTaxRate').val();
+    const defaultInvoiceNotes = $('#accountInvoiceNotes').val();
+
+    // Send update
+    fetch(`${baseUrl()}/auth/update-account-invoice-settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        "authorization": `Bearer ${info.token}`
+      },
+      body: JSON.stringify({
+        defaultInvoicePrefix,
+        defaultPaymentTerms,
+        defaultTaxRate,
+        defaultInvoiceNotes,
+      })
+    })
+      .then(response => {
+
+        if (!response.ok) throw new Error('An error occurred while updating account details');
+        return response.json();
+      })
+      .then(data => {
+        toastr.success('Company information updated successfully');
+        info.user.accountInvoicePrefix = defaultInvoicePrefix;
+        info.user.accountPaymentTerms = defaultPaymentTerms;
+        info.user.accountTaxRate = defaultTaxRate;
+        info.user.accountInvoiceNotes = defaultInvoiceNotes;
+        sessionStorage.setItem("info", JSON.stringify(info));
       })
       .catch(error => {
         console.error(error);

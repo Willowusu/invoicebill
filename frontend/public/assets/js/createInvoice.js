@@ -3,6 +3,13 @@ import { baseUrl } from "/assets/js/utils.js";
 
 $(() => {
   let info = JSON.parse(sessionStorage.getItem("info"));
+  $("#taxRate").val(info.user.accountTaxRate);
+  $("#notes").val(info.user.accountInvoiceNotes);
+  // Preselect due date based on accountPaymentTerms
+  const paymentTerms = parseInt(info.user.accountPaymentTerms) || 0;
+  const dueDate = new Date();
+  dueDate.setDate(dueDate.getDate() + paymentTerms);
+  $('#dueDate').val(dueDate.toISOString().split('T')[0]);
 
   // Load clients into dropdown
   fetch(`${baseUrl()}/clients`, {
