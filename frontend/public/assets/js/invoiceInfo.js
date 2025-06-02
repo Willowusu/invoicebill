@@ -17,6 +17,9 @@ $(() => {
   let info = JSON.parse(sessionStorage.getItem("info"));
 
   const invoiceId = window.location.pathname.split('/').pop();
+  $('#updateInvoice').attr('href', `/invoices/create?id=${invoiceId}`);
+
+
 
   fetch(`${baseUrl()}/invoices/${invoiceId}`, {
     method: "GET",
@@ -146,5 +149,112 @@ $(() => {
 
         html2pdf().set(opt).from(element).save();
       });
+
+
+  //delete invoice
+  $('#deleteInvoiceBtn').click(function () {
+    if (!invoiceId) {
+      toastr.error("Invoice ID is missing.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to delete this invoice? This action cannot be undone.")) {
+      return;
+    }
+
+    fetch(`${baseUrl()}/invoices/${invoiceId}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${info.token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => { throw new Error(data.message || 'Failed to delete invoice'); });
+        }
+        return res.json();
+      })
+      .then(data => {
+        toastr.success("Invoice deleted (marked as invalid)");
+        setTimeout(() => {
+          window.location.href = "/invoices";
+        }, 1500);
+      })
+      .catch(err => {
+        toastr.error(err.message || "Error deleting invoice");
+        console.error("Delete invoice error:", err);
+      });
+  });
+
+  //mark invoice as paid
+  $('#markAsPaidBtn').click(function () {
+    if (!invoiceId) {
+      toastr.error("Invoice ID is missing.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to mark this invoice as paid? This action cannot be undone.")) {
+      return;
+    }
+
+    fetch(`${baseUrl()}/invoices/${invoiceId}/mark-as-paid`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${info.token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => { throw new Error(data.message || 'Failed to mark invoice as paid'); });
+        }
+        return res.json();
+      })
+      .then(data => {
+        toastr.success("Invoice marked as paid");
+        setTimeout(() => {
+          window.location.href = "/invoices";
+        }, 1500);
+      })
+      .catch(err => {
+        toastr.error(err.message || "Error marking invoice as paid");
+        console.error("Mark invoice as paid error:", err);
+      });
+  });
+
+
+  //mark invoice as paid
+  $('#sendInvoiceBtn').click(function () {
+    if (!invoiceId) {
+      toastr.error("Invoice ID is missing.");
+      return;
+    }
+
+    if (!confirm("Are you sure you want to send this invoice? This action cannot be undone.")) {
+      return;
+    }
+
+    fetch(`${baseUrl()}/invoices/${invoiceId}/send`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': `Bearer ${info.token}`
+      }
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.json().then(data => { throw new Error(data.message || 'Failed to send invoice'); });
+        }
+        return res.json();
+      })
+      .then(data => {
+        toastr.success("Invoice has been sent");
+      })
+      .catch(err => {
+        toastr.error(err.message || "Error sending invoice");
+        console.error("Sending invoice error:", err);
+      });
+  });
 
 });

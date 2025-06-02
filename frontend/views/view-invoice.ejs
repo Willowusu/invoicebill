@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('partials/mainHead') %>
+    <script type="module" src="/assets/js/view-invoice.js"></script>
+</head>
+
+<body class="app-default">
+  <script>
+    var defaultThemeMode = "light";
+    var themeMode;
+    if (document.documentElement) {
+      if (document.documentElement.hasAttribute("data-bs-theme-mode")) {
+        themeMode = document.documentElement.getAttribute("data-bs-theme-mode");
+      } else {
+        themeMode = localStorage.getItem("data-bs-theme") || defaultThemeMode;
+      }
+      if (themeMode === "system") {
+        themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      }
+      document.documentElement.setAttribute("data-bs-theme", themeMode);
+    }
+  </script>
+
+  <div class="d-flex flex-column flex-root app-root">
+    <div class="app-page flex-column flex-column-fluid">
+      <!-- Header -->
+      <div class="app-header py-3 border-bottom">
+        <div class="container d-flex justify-content-between align-items-center">
+          <a href="/" class="d-flex align-items-center">
+            <img alt="Logo" src="/assets/media/images/ScribeBill.png" class="h-30px" />
+            <span class="ms-2 fw-bold">ScribeBill</span>
+          </a>
+          <h1 class="fs-3 m-0">Invoice</h1>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="app-content flex-column-fluid">
+        <div class="container d-flex justify-content-center py-10">
+          <div class="card p-7 shadow w-100" style="max-width: 900px;">
+            <div class="d-flex align-items-center justify-content-between">
+              <section>
+                <h1 class="">Invoice Details</h1>
+                <div class="small text-muted">Status: <span id="invoice-status" class="badge"></span>
+                </div>
+              </section>
+              <section class="d-flex align-items-center justify-content-end gap-2">
+                <img src="" id="account-logo" class="w-auto h-100 object-fit-contain" style="max-width: 50px;"
+                  height="100" alt="">
+                <h1 id="account-name"></h1>
+              </section>
+            </div>
+
+
+            <div
+              class="d-flex align-items-cd-flex align-items-center justify-content-betweenenter justify-content-between mt-4">
+
+              <section>
+                <div class="text-muted small mb-2">Bill To:</div>
+                <div class="fw-bold fs-5 my-1" id="client-company"></div>
+                <div class="fs-5 my-1" id="client-name"></div>
+                <div class="fs-5 my-1" id="client-address"></div>
+                <div class="fs-5 my-1" id="client-email"></div>
+              </section>
+
+              <section>
+                <div class="text-muted small mb-1">Invoice Number:</div>
+                <div class="fs-5 my-1 invoice-number"></div>
+                <div class="text-muted small my-1">Issue Date:</div>
+                <div class="fs-5 my-1" id="invoice-date"></div>
+                <div class="text-muted small my-1">Due Date:</div>
+                <div class="fs-5 my-1" id="invoice-due"></div>
+              </section>
+            </div>
+
+            <hr>
+
+            <h3 class="my-3">Invoice Items</h3>
+            <div class="table-responsive">
+              <table class="table table-hover table-rounded table-striped border gy-7 gs-7">
+                <thead>
+                  <tr class="fw-semibold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                    <th>Description</th>
+                    <th>Quantity</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="invoice-items-body">
+                  <!-- JS injects rows -->
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex flex-column align-items-end mt-4">
+              <div class="d-flex justify-content-between w-100" style="max-width: 300px;">
+                <span class="text-muted">Subtotal:</span>
+                <span id="invoice-subtotal"></span>
+              </div>
+              <div class="d-flex justify-content-between w-100" style="max-width: 300px;">
+                <span class="text-muted">Tax:</span>
+                <span id="invoice-tax"></span>
+              </div>
+              <hr class="w-100" style="max-width: 300px;">
+              <div class="d-flex justify-content-between w-100" style="max-width: 300px;">
+                <strong>Total:</strong>
+                <strong id="invoice-total"></strong>
+              </div>
+              <div class="d-flex justify-content-between w-100 mt-2" style="max-width: 300px;">
+                <span id="invoice-paid-date" class="text-success"></span>
+                <span id="invoice-paid" class="text-success"></span>
+              </div>
+            </div>
+
+            <hr>
+
+            <h4>Notes</h4>
+            <p id="invoice-notes" class="text-muted">
+              Payment due within 30 days. Please make checks payable to InvoiceHub Inc.
+            </p>
+
+            <p class="text-muted mt-5">Thank you for your business. If you have any questions, please contact us.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('partials/toast') %>
+    <%- include('partials/mainScript') %>
+</body>
+
+</html>

@@ -35,7 +35,7 @@ router.patch('/invoices/:invoiceId', authenticateToken, invoiceController.update
 router.delete('/invoices/:invoiceId', authenticateToken, invoiceController.deleteInvoice);
 router.post('/invoices/:invoiceId/mark-as-paid', authenticateToken, invoiceController.markAsPaid);
 router.post('/invoices/:invoiceId/send', authenticateToken, invoiceController.sendInvoiceByEmail);
-
+router.get('/invoices/public/view', invoiceController.publicViewInvoice);
 
 
 

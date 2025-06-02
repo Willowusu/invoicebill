@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('index', { title: 'ScribeBill' });
 });
 
 /* GET login page. */
@@ -57,4 +57,8 @@ router.get('/settings', function (req, res, next) {
   res.render('settings', { title: 'Settings' });
 });
 
+/* GET public invoice page. */
+router.get('/view-invoice', function (req, res, next) {
+  res.render('view-invoice', { title: 'View Invoice' });
+});
 module.exports = router;

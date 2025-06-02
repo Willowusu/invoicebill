@@ -1,12 +1,13 @@
+<script type="module" src="/assets/js/mainSidebar.js"></script>
 <div id="kt_app_sidebar" class="app-sidebar flex-column" data-kt-drawer="true" data-kt-drawer-name="app-sidebar"
   data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="250px"
   data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_app_sidebar_mobile_toggle">
   <div class="app-sidebar-logo flex-shrink-0 d-none d-md-flex align-items-center px-8" id="kt_app_sidebar_logo">
     <!--begin::Logo-->
-    <a href="index.html">
-      <img alt="Logo" src="assets/media/logos/demo42.svg"
-        class="h-25px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
-      <img alt="Logo" src="assets/media/logos/demo42-dark.svg" class="h-25px h-lg-25px theme-dark-show" />
+    <a href="/">
+      <img alt="Logo" src="assets/media/images/ScribeBill(6).png"
+        class="h-75px d-none d-sm-inline app-sidebar-logo-default theme-light-show" />
+      <img alt="Logo" src="assets/media/images/ScribeBill(6).png" class="h-75px h-lg-75px theme-dark-show" />
     </a>
     <!--end::Logo-->
     <!--begin::Aside toggle-->
@@ -107,12 +108,13 @@
       <div class="d-flex align-items-center" data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
         data-kt-menu-overflow="true" data-kt-menu-placement="top-start">
         <div class="d-flex flex-center cursor-pointer symbol symbol-circle symbol-40px">
-          <img src="assets/media/avatars/300-1.jpg" alt="image" />
+          <img class="accountLogo" alt="image" style="width: 40px; height: 40px; object-fit: contain;" />
+
         </div>
         <!--begin::Name-->
         <div class="d-flex flex-column align-items-start justify-content-center ms-3">
           <span class="text-gray-500 fs-8 fw-semibold">Hello</span>
-          <a href="#" class="text-gray-800 fs-7 fw-bold text-hover-primary">Jeroen van Basten</a>
+          <a href="#" class="accountName text-gray-800 fs-7 fw-bold text-hover-primary"></a>
         </div>
         <!--end::Name-->
       </div>
@@ -126,15 +128,16 @@
           <div class="menu-content d-flex align-items-center px-3">
             <!--begin::Avatar-->
             <div class="symbol symbol-50px me-5">
-              <img alt="Logo" src="assets/media/avatars/300-1.jpg" />
+              <img class="accountLogo" alt="image" style="width: 40px; height: 40px; object-fit: contain;" />
+
             </div>
             <!--end::Avatar-->
             <!--begin::Username-->
             <div class="d-flex flex-column">
-              <div class="fw-bold d-flex align-items-center fs-5">Eugenia
-                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2">Pro</span>
+              <div id="userName" class="fw-bold d-flex align-items-center fs-5">
+                <span id="userRole" class="badge badge-light-success fw-bold fs-8 px-2 py-1 ms-2"></span>
               </div>
-              <a href="#" class="fw-semibold text-muted text-hover-primary fs-7">eugenia@kt.com</a>
+              <a id="userEmail" href="#" class="fw-semibold text-muted text-hover-primary fs-7"></a>
             </div>
             <!--end::Username-->
           </div>
@@ -145,7 +148,7 @@
         <!--end::Menu separator-->
         <!--begin::Menu item-->
         <div class="menu-item px-5">
-          <a href="account/overview.html" class="menu-link px-5">My Profile</a>
+          <a href="/settings" class="menu-link px-5">My Profile</a>
         </div>
         <!--end::Menu item-->
 
@@ -268,3 +271,4 @@
   </div>
   <!--end::Footer-->
 </div>
+

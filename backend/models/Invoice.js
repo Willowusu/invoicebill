@@ -20,6 +20,7 @@ const invoiceSchema = new mongoose.Schema({
   taxRate: Number, // percent
   taxAmount: Number,
   total: Number,
+  currency: { type: String},
 
   status: { type: String, enum: ['draft', 'sent', 'paid', 'overdue', 'invalid'], default: 'draft' },
 

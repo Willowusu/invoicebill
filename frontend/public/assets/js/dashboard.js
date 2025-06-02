@@ -38,11 +38,11 @@ $(() => {
           response.data.recentInvoices.forEach(invoice => {
             let row = `
             <tr>
-              <td>${invoice?.invoiceNumber}</td>
+              <td><a href="/invoices/${invoice?._id}" > ${invoice?.invoiceNumber}</a></td>
               <td>${invoice?.clientId.name}</td>
               <td>${invoice?.status}</td>
-              <td>$${invoice?.total.toFixed(2)}</td>
-              <td>${new Date(invoice?.dueDate).toLocaleDateString()}</td>
+              <td>GHS ${invoice?.total.toFixed(2)}</td>
+              <td>${new Date(invoice?.dueDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }</td>
             </tr>
           `;
             $("#recentInvoices").append(row);

@@ -1,10 +1,12 @@
 
 const Invoice = require('../models/Invoice');
 const Client = require('../models/Client');
+const Account = require('../models/Account'); // make sure to import it
 const Payment = require('../models/Payment'); // make sure to import it
 const nodemailer = require('nodemailer'); // assuming already configured
 const { response } = require('../utils/response');
 const mail = require('../utils/mail');
+const jwt = require('jsonwebtoken');
 
 exports.createInvoice = async (req, res) => {
 
@@ -126,14 +128,24 @@ exports.sendInvoiceByEmail = async (req, res) => {
       return res.status(400).json(response(400, 'error', null, 'Client email not found'));
     }
 
+    const token = jwt.sign(
+      {
+        invoiceId: invoice._id,
+        type: 'invoice-view',
+        accountId: user.accountId
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: '7d' } // or shorter, like '2d'
+    );
+
     // 2. Build email content
-    const subject = `Invoice #${invoice.invoiceNumber} from ${req.user.companyName}`; //company name must be modified
+    const subject = `Invoice #${invoice.invoiceNumber} from ${req.user.accountName}`; //company name must be modified
     const htmlContent = `
       <h2>Hi ${client.name},</h2>
       <p>Please find your invoice below:</p>
       <p><strong>Invoice Total:</strong> $${invoice.total.toFixed(2)}</p>
       <p><strong>Due Date:</strong> ${new Date(invoice.dueDate).toLocaleDateString()}</p>
-      <p><a href="https://yourapp.com/invoices/${invoice._id}">View & Pay Invoice</a></p>
+      <p><a href="http://localhost:5000/view-invoice?token=${token}">View & Pay Invoice</a></p>
       <br>
       <p>Thank you!</p>
     `;
@@ -141,7 +153,7 @@ exports.sendInvoiceByEmail = async (req, res) => {
     // 3. Send the email
     const mailOptions = {
       from: `"${req.user.companyName}" <${req.user.email}>`, // sender address
-      to: client.email,
+      to: "khorus43@gmail.com",//client.email,
       subject,
       html: htmlContent
     };
@@ -290,3 +302,29 @@ exports.markAsPaid = async (req, res) => {
   }
 };
 
+
+exports.publicViewInvoice = async (req, res) => {
+  const token = req.query.token;
+
+  if (!token) {
+    return res.status(400).json(response(400, 'error', null, 'Missing token'));
+  }
+
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+
+    if (payload.type !== 'invoice-view') {
+      return res.status(403).json(response(403, 'error', null, 'Invalid token type'));
+    }
+
+    const invoice = await Invoice.findOne({ _id: payload.invoiceId, accountId: payload.accountId }).populate('clientId accountId');
+
+    if (!invoice) {
+      return res.status(404).json(response(404, 'error', null, 'Invoice not found'));
+    }
+
+    return res.status(200).json(response(200, 'success', invoice));
+  } catch (err) {
+    return res.status(401).json(response(401, 'error', null, 'Invalid or expired token'));
+  }
+}

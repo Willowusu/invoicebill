@@ -1,10 +1,255 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+
+<html lang="en">
+<!--begin::Head-->
+<%- include('partials/mainHead')%>
+  <style>
+    .content {
+      margin-top: 70px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 1.2;
+      color: #343a40;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #6c757d;
+    }
+  </style>
+
+
+  <!--end::Head-->
+  <!--begin::Body-->
+
+  <body id="kt_app_body" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true"
+    data-kt-app-sidebar-enabled="true" data-kt-app-sidebar-fixed="true" data-kt-app-sidebar-push-header="true"
+    data-kt-app-sidebar-push-toolbar="true" data-kt-app-sidebar-push-footer="true" data-kt-app-toolbar-enabled="true"
+    class="app-default">
+    <!--begin::Theme mode setup on page load-->
+    <script>var defaultThemeMode = "light"; var themeMode; if (document.documentElement) { if (document.documentElement.hasAttribute("data-bs-theme-mode")) { themeMode = document.documentElement.getAttribute("data-bs-theme-mode"); } else { if (localStorage.getItem("data-bs-theme") !== null) { themeMode = localStorage.getItem("data-bs-theme"); } else { themeMode = defaultThemeMode; } } if (themeMode === "system") { themeMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; } document.documentElement.setAttribute("data-bs-theme", themeMode); }</script>
+    <!--end::Theme mode setup on page load-->
+    <!--begin::App-->
+    <div class="container">
+      <!--begin header-->
+      <div class="header">
+        <div class="d-flex w-100 justify-content-center">
+          <div class="container d-flex justify-content-between align-items-center py-3">
+
+            <!-- Left: Logo -->
+            <div class="d-flex align-items-center">
+              <a href="/" class="fw-bold fs-4 text-dark text-decoration-none">YourLogo</a>
+            </div>
+
+            <!-- Center: Nav Links -->
+            <div class="d-none d-md-flex gap-4 justify-content-center flex-grow-1">
+              <a href="/pricing" class="text-dark text-hover-primary fw-semibold">Pricing</a>
+              <a href="/help" class="text-dark text-hover-primary fw-semibold">Help</a>
+              <a href="/blog" class="text-dark text-hover-primary fw-semibold">Blog</a>
+              <a href="/updates" class="text-dark text-hover-primary fw-semibold">Updates</a>
+            </div>
+
+            <!-- Right: Buttons -->
+            <div class="d-flex align-items-center gap-3">
+              <a href="/signin" class="btn btn-light">Sign In</a>
+              <a href="/get-started" class="btn btn-primary">Get Started</a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!--end header-->
+      <div class="content">
+        <div class="container">
+
+          <!-- Hero Section -->
+          <section class="text-center my-5">
+            <p class="text-muted">A freelancer recently asked me...</p>
+            <h1>Why Am I Still Wasting Time<br>Chasing Clients for Payments?</h1>
+            <p>
+              You're juggling spreadsheets, chasing overdue invoices, and manually formatting PDFs.<br>
+              <strong>ScribeBill</strong> streamlines the entire invoicing process—from creation to payment
+              tracking—<br>
+              so you stay focused on growing your business, not managing paperwork.
+            </p>
+            <div class="my-10">
+              <a href="/" class="btn btn-dark">Get Started</a>
+            </div>
+            <p class="text-muted">No credit card required. Send your first invoice in minutes.</p>
+            <img class="border border-secondary rounded mw-75 mx-auto d-block my-5"
+              src="/assets/media/images/ScribeBillDash.png" alt="Dashboard screenshot">
+          </section>
+
+          <!-- Problem Section -->
+          <section class="text-center" style="margin-top: 50px; margin-bottom: 50px;">
+            <p class="text-muted">They then explained...</p>
+            <h1>Every Month Brings the <br> Same Billing Headaches...</h1>
+          </section>
+
+          <!-- Problem Cards -->
+          <section class="text-center mb-7">
+            <div class="d-flex flex-column align-items-center justify-content-center gap-3">
+              <div class="card px-4 py-2 text-bg-light" style="width: 400px;"><p class="text-dark">Late payments disrupt cash flow.</p></div>
+              <div class="card px-4 py-2 text-bg-light" style="width: 400px;"><p class="text-dark">Manual invoice tracking is error-prone.</p>
+              </div>
+              <div class="card px-4 py-2 text-bg-light" style="width: 400px;"><p class="text-dark">Clients forget to pay without reminders.</p>
+              </div>
+              <div class="card px-4 py-2 text-bg-light" style="width: 400px;"><p class="text-dark">Spreadsheets don’t scale with your
+                business.</p>
+              </div>
+              <div class="card px-4 py-2 text-bg-light" style="width: 400px;"><p class="text-dark">No insight into who owes what and when.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- Solution Section -->
+          <section class="text-center" style="margin-top: 50px; margin-bottom: 50px;">
+            <p class="text-muted">So we built a better way...</p>
+            <h1>Create and Send Invoices<br>in Just a Few Clicks</h1>
+            <p>
+              With <strong>ScribeBill</strong>, you can generate polished invoices, auto-send payment reminders,<br>
+              track paid/unpaid balances, and even accept online payments — all in one place.
+            </p>
+            <img class="border border-secondary rounded mw-75 mx-auto d-block my-5"
+              src="/assets/media/images/ScribeBillCreateInvoice.png" alt="Invoice dashboard screenshot">
+          </section>
+
+          <!-- Feature Highlights -->
+          <section class="text-center" style="margin-top: 50px; margin-bottom: 50px;">
+            <h1>Everything You Need<br>for Stress-Free Invoicing</h1>
+            <div class="d-flex flex-wrap justify-content-center gap-4 mt-5">
+              <!-- Card 1 -->
+              <div class="card" style="width: 18rem;">
+                <div class="card-body text-center">
+                  <h3>Smart Invoicing</h3>
+                  <p>Create and send invoices in seconds with branded templates and recurring billing.</p>
+                </div>
+              </div>
+              <!-- Card 2 -->
+              <div class="card" style="width: 18rem;">
+                <div class="card-body text-center">
+                  <h3>Payment Reminders</h3>
+                  <p>Automated follow-ups keep your cash flow healthy — without the awkward emails.</p>
+                </div>
+              </div>
+              <!-- Card 3 -->
+              <div class="card" style="width: 18rem;">
+                <div class="card-body text-center">
+                  <h3>Online Payments</h3>
+                  <p>Accept credit cards, bank transfers, and more — integrated directly into your invoices.</p>
+                </div>
+              </div>
+              <!-- Card 4 -->
+              <div class="card" style="width: 18rem;">
+                <div class="card-body text-center">
+                  <h3>Real-Time Tracking</h3>
+                  <p>See who opened, paid, or ignored your invoice — all at a glance.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Benefits Section -->
+          <section class="text-center my-7">
+            <h1>Get Paid Faster <br>Without Lifting a Finger</h1>
+            <p>
+              ScribeBill works in the background to remind, collect, and confirm payments.<br>
+              Let us handle the admin so you can focus on your craft.
+            </p>
+            <img class="border border-secondary rounded mw-75 mx-auto d-block my-5"
+              src="/assets/media/images/ScribeBillInvoiceInfo.png" alt="Payment reminder screenshot">
+          </section>
+
+          <!-- Call to Action -->
+          <section class="text-center" style="margin-top: 50px; margin-bottom: 50px;">
+            <h1 class="my-5">Start Sending Invoices Today</h1>
+            <p>
+              Designed for freelancers, agencies, and growing teams.<br>
+              Your first invoice is just a few clicks away.
+            </p>
+            <div class="my-4">
+              <a href="/" class="btn btn-dark">Get Started</a>
+            </div>
+            <p class="text-muted">No credit card required. Cancel anytime.</p>
+          </section>
+
+          <!-- FAQ Section -->
+          <section class="my-7">
+            <h1 class="text-center">Frequently Asked Questions</h1>
+            <div class="accordion" id="kt_accordion_1">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="kt_accordion_1_header_1">
+                  <button class="accordion-button fs-4 fw-semibold" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#kt_accordion_1_body_1" aria-expanded="true" aria-controls="kt_accordion_1_body_1">
+                    How long does it take to set up?
+                  </button>
+                </h2>
+                <div id="kt_accordion_1_body_1" class="accordion-collapse collapse show"
+                  aria-labelledby="kt_accordion_1_header_1" data-bs-parent="#kt_accordion_1">
+                  <div class="accordion-body">
+                    You can create your first branded invoice in under 2 minutes. No technical skills needed.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="kt_accordion_1_header_2">
+                  <button class="accordion-button fs-4 fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#kt_accordion_1_body_2" aria-expanded="false" aria-controls="kt_accordion_1_body_2">
+                    Can I accept online payments?
+                  </button>
+                </h2>
+                <div id="kt_accordion_1_body_2" class="accordion-collapse collapse"
+                  aria-labelledby="kt_accordion_1_header_2" data-bs-parent="#kt_accordion_1">
+                  <div class="accordion-body">
+                    Yes! We integrate with Stripe and other gateways so you can get paid directly from your invoices.
+                  </div>
+                </div>
+              </div>
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="kt_accordion_1_header_3">
+                  <button class="accordion-button fs-4 fw-semibold collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#kt_accordion_1_body_3" aria-expanded="false" aria-controls="kt_accordion_1_body_3">
+                    What does it cost?
+                  </button>
+                </h2>
+                <div id="kt_accordion_1_body_3" class="accordion-collapse collapse"
+                  aria-labelledby="kt_accordion_1_header_3" data-bs-parent="#kt_accordion_1">
+                  <div class="accordion-body">
+                    You can start for free. Paid plans unlock more features like recurring billing, integrations, and
+                    priority
+                    support.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+
+      <%- include('partials/footer') %>
+      <!--end::Footer-->
+
+
+      <!--end::App-->
+
+      <!--begin::Scrolltop-->
+      <div id="kt_scrolltop" class="scrolltop" data-kt-scrolltop="true">
+        <i class="ki-outline ki-arrow-up"></i>
+      </div>
+      <!--end::Scrolltop-->
+
+      <!--begin::Javascript-->
+      <%- include('partials/toast') %>
+        <%- include('partials/mainScript') %>
+          <!--end::Javascript-->
   </body>
+  <!--end::Body-->
+
+
+
 </html>
