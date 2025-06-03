@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const PORT = 3000;
-const DB_URL = 'mongodb://localhost:27017/invoice';
+const DB_URL = process.env.MONGO_URL || 'mongodb://localhost:27017/invoice';
 
 
 const app = express();
