@@ -143,7 +143,7 @@ exports.sendInvoiceByEmail = async (req, res) => {
     const htmlContent = `
       <h2>Hi ${client.name},</h2>
       <p>Please find your invoice below:</p>
-      <p><strong>Invoice Total:</strong> $${invoice.total.toFixed(2)}</p>
+      <p><strong>Invoice Total:</strong> GHS ${invoice.total.toFixed(2)}</p>
       <p><strong>Due Date:</strong> ${new Date(invoice.dueDate).toLocaleDateString()}</p>
       <p><a href="http://localhost:5000/view-invoice?token=${token}">View & Pay Invoice</a></p>
       <br>
@@ -153,7 +153,7 @@ exports.sendInvoiceByEmail = async (req, res) => {
     // 3. Send the email
     const mailOptions = {
       from: `"${req.user.companyName}" <${req.user.email}>`, // sender address
-      to: "khorus43@gmail.com",//client.email,
+      to: client.email,//"khorus43@gmail.com",
       subject,
       html: htmlContent
     };

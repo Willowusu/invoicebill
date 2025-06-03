@@ -9,7 +9,9 @@ const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() }); // Use memory, not disk
 
 
-
+router.get('/', (req, res) => {
+  res.status(200).json({ message: 'Welcome to the Invoice Management API' });
+});
 router.post('/auth/register', authController.register);
 router.post('/auth/login', authController.login);
 router.post('/auth/invite', authenticateToken, authController.inviteUser);
