@@ -1,3 +1,3 @@
 export function baseUrl(){
-  return "http://localhost:3000/api/v1"
+  return "invoicebill-ph.vercel.app/api/v1"
 }
